@@ -6,19 +6,19 @@ import { normalizeFields } from "./_utils/normalization";
 import { TFaultIntercept } from "./_utils/types";
 import { buildPlanes } from "./_utils/buildPlanes";
 
-const data = normalizeFields(
-  sample_data
-    .filter((d) => d.class === Number(2) || d.class === Number(3))
-    .map((d, i) => ({
-      ...d,
-      index: i,
-    })) as TFaultIntercept[]
-);
-
 export default function Home() {
   const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
-  const planes = buildPlanes(data, 10);
+  const data = normalizeFields(
+    sample_data
+      .filter((d) => d.class === Number(2) || d.class === Number(3))
+      .map((d, i) => ({
+        ...d,
+        index: i,
+      })) as TFaultIntercept[]
+  );
+
+  const planes = buildPlanes(data);
 
   const filteredPlanes = planes;
 
